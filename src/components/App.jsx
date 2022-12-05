@@ -12,9 +12,8 @@ export class App extends React.Component {
   };
 
   addFeedback = evt => {
-    const typeFeedback = evt.target.textContent.toLowerCase();
     this.setState(prevState => ({
-      [typeFeedback]: prevState[typeFeedback] + 1,
+      [evt.target.id]: prevState[evt.target.id] + 1,
     }));
   };
   countTotalFeedback = total => {
@@ -32,7 +31,10 @@ export class App extends React.Component {
     return (
       <>
         <Section title="Please leave feedback">
-          <FeedbackOptions onLeaveFeedback={this.addFeedback} />
+          <FeedbackOptions
+            onLeaveFeedback={this.addFeedback}
+            options={Object.keys(this.state)}
+          />
           {totalFeedback > 0 ? (
             <Statistics
               good={good}
